@@ -19,7 +19,7 @@ export class CreateUserUseCase {
 
     const url = `https://skylab-api.rocketseat.com.br/public/event/nlw-copa/referral/${username}`
       
-    const  userIsValid = await axios.get(url).then(response => response.data.totalCount).catch(() => null);
+    const  userIsValid = await axios.get(url).then(response => response.data).catch(() => null);
     
     if(userAlreadyExists) throw new Error("Usuário já existe");
     if(!userIsValid) throw new Error("Usuário inválido");
