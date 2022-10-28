@@ -5,7 +5,10 @@ import { IUsersRepository } from "../../../repositories/UsersRepository";
 interface IRanking {
   id?: string;
   username?: string;
-  totalCount?: number;
+  count?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+
 }
 
 @injectable()
@@ -27,12 +30,14 @@ export class GetAllRankingUseCase {
      return {
         id: user.id,
         username: user.username,
-        totalCount: count
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        count
      }
   
     }))
    
 
-    return (await ranking).sort((a, b) => b.totalCount - a.totalCount);
+    return (await ranking).sort((a, b) => b.count - a.count);
   }
 }
