@@ -24,15 +24,18 @@ export class GetAllRankingUseCase {
     const allUsers = await this.usersRepository.getAll();
     
     const ranking =  Promise.all(allUsers.map( async (user) => {
+   
       const url = `https://skylab-api.rocketseat.com.br/public/event/nlw-copa/referral/${user.username}`
-     const count = await axios.get(url).then(response => response.data.totalCount)
+      
+       const  count = await axios.get(url).then(response => response.data.totalCount) || 0;
+     
 
      return {
         id: user.id,
         username: user.username,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
-        count
+        count: count?? 0
      }
   
     }))

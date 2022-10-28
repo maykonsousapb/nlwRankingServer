@@ -6,8 +6,12 @@ export class GetAllRankingController {
   async handle(request: Request, response: Response): Promise<Response> {
     const getAllRankingUseCase = container.resolve(GetAllRankingUseCase);
 
-    const ranking = await getAllRankingUseCase.execute();
-
-    return response.json(ranking);
+    try {
+      const ranking = await getAllRankingUseCase.execute();
+      return response.json(ranking);
+    } catch  {
+      return response.status(400).json({ error: "Deu erro na rocket" });
+    }
+    
   }
 }
