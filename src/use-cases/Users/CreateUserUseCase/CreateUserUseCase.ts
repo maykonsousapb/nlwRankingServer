@@ -12,7 +12,7 @@ export class CreateUserUseCase {
 
   async execute({username}: IUserCreateData): Promise<IDataUserModel> {
     
-    if(!username) throw new Error("Username is required");
+    if(!username) throw new Error("Usuário não informado");
     
     const userAlreadyExists = 
     await this.usersRepository.getByUsername(username) 
@@ -21,8 +21,8 @@ export class CreateUserUseCase {
       
     const  userIsValid = await axios.get(url).then(response => response.data.totalCount).catch(() => null);
     
-    if(userAlreadyExists) throw new Error("User already exists");
-    if(!userIsValid) throw new Error("User is not valid");
+    if(userAlreadyExists) throw new Error("Usuário já existe");
+    if(!userIsValid) throw new Error("Usuário inválido");
 
 
     const user = await this.usersRepository.create({
