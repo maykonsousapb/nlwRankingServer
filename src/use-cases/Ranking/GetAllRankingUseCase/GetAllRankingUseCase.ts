@@ -27,7 +27,7 @@ export class GetAllRankingUseCase {
    
       const url = `https://skylab-api.rocketseat.com.br/public/event/nlw-copa/referral/${user.username}`
       
-       const  count = await axios.get(url).then(response => response.data.totalCount) || 0;
+       const  count = await axios.get(url).then(response => response.data.totalCount).catch(()=>0)
      
 
      return {
