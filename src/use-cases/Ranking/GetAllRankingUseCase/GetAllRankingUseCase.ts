@@ -5,7 +5,7 @@ import { IUsersRepository } from "../../../repositories/UsersRepository";
 interface IRanking {
   id?: string;
   username?: string;
-  count?: number;
+  count?: number | string;
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -27,7 +27,7 @@ export class GetAllRankingUseCase {
    
       const url = `https://skylab-api.rocketseat.com.br/public/event/nlw-copa/referral/${user.username}`
       
-       const  count = await axios.get(url).then(response => response.data.totalCount).catch(()=>0)
+       const  count = await axios.get(url).then(response => response.data.totalCount).catch(()=>"Falha ao recuperar. Verifique o ticket")
      
 
      return {
@@ -35,7 +35,7 @@ export class GetAllRankingUseCase {
         username: user.username,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
-        count: count?? 0
+        count: count
      }
   
     }))
